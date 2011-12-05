@@ -2,7 +2,7 @@ require 'rack'
 require 'rack/request'
 
 module Rack
-  class SSL
+  class SSLFacebook
     YEAR = 31536000
 
     def self.default_hsts_options
@@ -52,6 +52,16 @@ module Rack
         url.scheme = "https"
         url.host   = @host if @host
         url.port   = @port if @port
+        
+        # If a signed_request is present, append it to the query string.
+        if req.POST['signed_request']
+          if url.query.nil? or url.query.empty?
+            url.query = "signed_request=#{req.POST['signed_request']}"
+          else
+            url.query += "&signed_request=#{req.POST['signed_request']}"
+          end
+        end
+        
         headers    = hsts_headers.merge('Content-Type' => 'text/html',
                                         'Location'     => url.to_s)
 
