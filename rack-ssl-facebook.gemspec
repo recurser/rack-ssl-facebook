@@ -17,9 +17,11 @@ Gem::Specification.new do |s|
     "README.md"
   ]
   s.files = [
+    "Gemfile",
     "LICENSE",
     "README.md",
     "Rakefile",
+    "VERSION",
     "lib/rack/ssl_facebook.rb",
     "rack-ssl-facebook.gemspec",
     "test/test_ssl.rb"
